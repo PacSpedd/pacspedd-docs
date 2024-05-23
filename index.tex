@@ -1,10 +1,11 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}      % Für mathematische Symbole und Formeln
 \usepackage{listings}     % Für Quellcode-Formatierung
 \usepackage{xcolor}       % Für Farben im Quellcode
 
-\title{PacSpedd}
+\title{PacSpedd Documentation}
 \author{PacSpedd}
 \date{\today}
 
@@ -15,4 +16,49 @@
 \tableofcontents
 
 \section{Get Started}
+This is the Instruction for PacSpedd, a Build and Package System, written in Python.
 
+\section{Modules}
+PacSpedd has many specially configured Python libraries:
+
+\begin{enumerate}
+    \item \textbf{psbase}: Written in Rust, needed for few other modules. Termux gets a special version.
+    \item \textbf{psmake}: Make Tool, needed for building packages via Makefile.psmake.
+    \item \textbf{psbuild}: PacSpedd Build Library, essential for building PacSpedd packages.
+    \item \textbf{psmanager}: PacSpedd Manager, helps search and install PacSpedd packages, both from repositories and locally.
+    \item \textbf{pshelper}: PacSpedd Help tool, assists in creating, building, and testing new PacSpedd packages.
+\end{enumerate}
+
+\subsection{Usage: pshelper}
+
+\begin{verbatim}
+    Usage: pshelper [command] [name]
+    Commands:
+        new         ==> Create new PacSpedd with new directory
+        init        ==> Create new PacSpedd in existing directory
+        build       ==> Build new PacSpedd, must be in the root folder of the project
+        test        ==> Test the PacSpedd before building it
+        depends     ==> Add dependencies to manifest file
+        convert     ==> Generate binary from PacSpedd package, must be declared in the manifest file
+\end{verbatim}
+
+\subsection{Usage: psmake}
+
+\begin{verbatim}
+    Usage: psmake [command] [step]
+    Commands:
+        make        ==> Need step after this, runs the named step
+        generate    ==> Create Makefile from the Makefile.psmake
+        run-all     ==> Run all steps in one tour
+\end{verbatim}
+
+\subsection{psbase}
+
+\begin{verbatim}
+    from psbase import print
+    from psbase import cmd
+    from psbase import env
+    from psbase import PacSpeddBase
+\end{verbatim}
+
+\end{document}
