@@ -1,0 +1,39 @@
+name: LaTeX Build
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [build-latex]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install TeX Live
+        run: sudo apt-get install texlive-full -y
+
+      - name: Compile LaTeX to PDF
+        run: |
+          mkdir -p build
+          pdflatex index.tex
+          mv *.pdf build
+
+      - name: Upload Single PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: single-pdf
+          path: build/*.pdf
+
+      - name: Bundle PDFs
+        run: |
+          cd build
+          pdftk *.pdf cat output pacspedd_full.pdf
+
+      - name: Upload Bundled PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: bundled-pdf
+          path: build/*.pdf
